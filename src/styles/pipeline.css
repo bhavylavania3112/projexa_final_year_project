@@ -1,0 +1,99 @@
+/* ============================================
+   HOW IT WORKS — AI PIPELINE
+   ============================================ */
+.pipeline {
+    width: 100%;
+    padding: var(--section-pad-y) 1.5rem;
+    position: relative;
+    z-index: 10;
+}
+
+.pipeline__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.pipeline__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    position: relative;
+}
+
+.pipeline__line {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08), transparent);
+    transform: translateY(-50%);
+    z-index: 0;
+}
+
+.pipeline__card {
+    position: relative;
+    z-index: 1;
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
+    transition: all 0.4s var(--ease-out-expo);
+}
+
+.pipeline__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+.pipeline__card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    transition: background 0.3s ease;
+}
+
+.pipeline__card:hover .pipeline__card-icon {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.pipeline__card-icon .material-symbols-outlined {
+    font-size: 1.25rem;
+    color: var(--text-dark);
+}
+
+.pipeline__card h3 {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-dark);
+}
+
+.pipeline__card-tech {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+}
+
+.pipeline__card p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.pipeline__card-arrow {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    color: var(--text-dim);
+}

@@ -1,0 +1,152 @@
+/* ============================================
+   SCROLL REVEAL (base classes — GSAP overrides)
+   ============================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: opacity, transform;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (min-width: 768px) {
+    .pipeline__line {
+        display: block;
+    }
+
+    .pipeline__card-arrow {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .header__nav {
+        display: none;
+    }
+
+    .header__hamburger {
+        display: flex;
+    }
+
+    .btn--primary.header-cta {
+        display: none;
+    }
+
+    .pipeline__grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .hero {
+        padding: 3rem 1rem 4rem;
+    }
+
+    .hero__buttons {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .hero__glass-card {
+        padding: 1.5rem;
+        margin: 0 0.5rem 2rem;
+    }
+
+    .footer__top {
+        flex-direction: column;
+    }
+
+    .footer__bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .terminal__body {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero__title {
+        font-size: 2.2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* ============================================
+   MAGNETIC BUTTON EFFECT
+   ============================================ */
+.btn--magnetic {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn--magnetic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn--magnetic:hover::before {
+    opacity: 1;
+}
+
+/* ============================================
+   CUSTOM CURSOR
+   ============================================ */
+.cursor-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--text-dark);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: difference;
+    opacity: 0;
+    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+}
+
+.cursor-ring {
+    position: fixed;
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid rgba(26, 26, 46, 0.3);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: difference;
+    opacity: 0;
+    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+}
+
+.cursor-dot.visible,
+.cursor-ring.visible {
+    opacity: 1;
+}
+
+.cursor-dot.hovering {
+    width: 48px;
+    height: 48px;
+    background: rgba(26, 26, 46, 0.08);
+}
+
+.cursor-ring.hovering {
+    width: 60px;
+    height: 60px;
+    border-color: rgba(26, 26, 46, 0.15);
+}

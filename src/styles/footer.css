@@ -1,0 +1,137 @@
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+    width: 100%;
+    padding: 3rem 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
+    z-index: 10;
+}
+
+.footer__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+}
+
+.footer__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.footer__brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer__brand-logo .material-symbols-outlined {
+    color: var(--text-dark);
+}
+
+.footer__brand-logo span:last-child {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.125rem;
+    color: var(--text-dark);
+}
+
+.footer__brand-tagline {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.footer__contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+.footer__contact-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.footer__contact-email {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+.footer__contact-email:hover {
+    color: var(--text-dark);
+}
+
+.footer__links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.footer__link {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+.footer__link:hover {
+    color: var(--text-dark);
+}
+
+.footer__cta {
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    background: var(--text-dark);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.footer__cta:hover {
+    background: #111;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer__copyright {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+}
+
+.footer__legal {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer__legal a {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    transition: color 0.2s ease;
+}
+
+.footer__legal a:hover {
+    color: var(--text-dark);
+}

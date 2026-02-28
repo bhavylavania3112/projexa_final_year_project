@@ -1,0 +1,66 @@
+/* ============================================
+   BACKGROUND — VIBRANT GRADIENT ORBS
+   ============================================ */
+.page-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: var(--bg-light);
+}
+
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    will-change: transform;
+}
+
+.glow-orb--1 {
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(124, 185, 232, 0.65), transparent 65%);
+    top: -20%;
+    left: -15%;
+}
+
+.glow-orb--2 {
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(255, 138, 101, 0.55), transparent 60%);
+    top: 5%;
+    right: -15%;
+}
+
+.glow-orb--3 {
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, rgba(255, 217, 102, 0.50), transparent 55%);
+    bottom: -5%;
+    left: 15%;
+}
+
+.glow-orb--4 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.35), transparent 60%);
+    top: 35%;
+    left: 45%;
+}
+
+.glow-orb--5 {
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(255, 107, 107, 0.45), transparent 55%);
+    top: 50%;
+    right: 5%;
+}
+
+.glow-orb--6 {
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(circle, rgba(240, 98, 146, 0.40), transparent 60%);
+    top: 70%;
+    left: -5%;
+}

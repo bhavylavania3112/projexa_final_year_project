@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartReception — AI Voice Agent | Never Miss a Call Again</title>
+    <meta name="description"
+        content="24/7 AI Receptionists with under 2s latency. Natural conversations that convert callers into customers — no hold music, no frustration." />
+</head>
+
+<body>
+
+    <!-- ========== SHUTTER INTRO ========== -->
+    <div class="shutter-gradient-bg" id="shutterGradient"></div>
+    <div class="shutter-overlay" id="shutterOverlay">
+        <div class="shutter-slat"></div>
+        <div class="shutter-slat"></div>
+        <div class="shutter-slat"></div>
+        <div class="shutter-slat"></div>
+        <div class="shutter-slat"></div>
+        <div class="shutter-slat"></div>
+        <div class="shutter-slat"></div>
+        <div class="shutter-slat"></div>
+    </div>
+    <div class="shutter-cta" id="shutterCta">
+        <span>Scroll to Enter</span>
+        <div class="shutter-arrow">
+            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+        </div>
+    </div>
+
+    <!-- ========== BACKGROUND ========== -->
+    <div class="page-bg">
+        <div class="glow-orb glow-orb--1"></div>
+        <div class="glow-orb glow-orb--2"></div>
+        <div class="glow-orb glow-orb--3"></div>
+        <div class="glow-orb glow-orb--4"></div>
+        <div class="glow-orb glow-orb--5"></div>
+        <div class="glow-orb glow-orb--6"></div>
+    </div>
+
+    <!-- ========== HEADER ========== -->
+    <header class="header" id="header">
+        <div class="header__inner">
+            <a class="header__logo" href="#">
+                <span class="material-symbols-outlined">graphic_eq</span>
+                <span class="header__logo-text">SmartReception</span>
+            </a>
+            <nav class="header__nav" id="desktopNav">
+                <a class="header__nav-link" href="#features">Features</a>
+                <a class="header__nav-link" href="#pipeline">How It Works</a>
+                <a class="header__nav-link" href="#dashboard">Dashboard</a>
+                <a class="header__nav-link" href="#contact">Contact</a>
+            </nav>
+            <div class="header__actions">
+                <a class="btn btn--primary header-cta" href="#contact">Book a Demo</a>
+                <button class="header__hamburger" id="menuOpen" aria-label="Open menu">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav__close" id="menuClose" aria-label="Close menu">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <a class="mobile-nav__link" href="#features">Features</a>
+        <a class="mobile-nav__link" href="#pipeline">How It Works</a>
+        <a class="mobile-nav__link" href="#dashboard">Dashboard</a>
+        <a class="mobile-nav__link" href="#contact">Contact</a>
+        <a class="btn btn--primary btn--hero" href="#contact">Book a Demo</a>
+    </div>
+
+    <!-- ========== MAIN ========== -->
+    <main>
+
+        <!-- HERO -->
+        <section class="hero" id="features">
+            <div class="hero__badge reveal">AI-Powered Receptionist</div>
+            <h1 class="hero__title reveal reveal-delay-1">
+                Never Miss a <br />
+                <span class="hero__title-accent">Revenue-Generating</span> Call Again.
+            </h1>
+            <div class="hero__glass-card reveal reveal-delay-2">
+                <p class="hero__subtitle" style="margin-bottom: 0;">
+                    From missed calls to booked appointments — effortless and reliable.
+                </p>
+                <div class="hero__buttons" style="margin-bottom: 0;">
+                    <a class="btn btn--primary btn--hero" href="#dashboard">Get Started</a>
+                    <a class="btn btn--secondary btn--hero" href="#pipeline">See How It Works</a>
+                </div>
+            </div>
+            <hr class="hero__separator reveal reveal-delay-3" />
+
+            <!-- Waveform Visualizer -->
+            <div class="waveform reveal reveal-delay-4">
+                <div class="waveform__dot"></div>
+                <div class="waveform__bars">
+                    <div class="waveform__bar"></div>
+                    <div class="waveform__bar"></div>
+                    <div class="waveform__bar"></div>
+                    <div class="waveform__bar"></div>
+                    <div class="waveform__bar"></div>
+                    <div class="waveform__bar"></div>
+                    <div class="waveform__bar"></div>
+                    <div class="waveform__bar"></div>
+                    <div class="waveform__bar"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="pipeline" id="pipeline">
+            <div class="pipeline__inner">
+                <span class="section-label reveal">How It Works</span>
+                <h2 class="section-title reveal reveal-delay-1">The Modular <span>AI Pipeline</span></h2>
+                <p class="section-desc reveal reveal-delay-2">Four powerful stages working in harmony to deliver
+                    sub-2-second responses.</p>
+
+                <div class="pipeline__grid">
+                    <div class="pipeline__line"></div>
+
+                    <div class="pipeline__card reveal reveal-delay-1">
+                        <div class="pipeline__card-icon">
+                            <span class="material-symbols-outlined">mic</span>
+                        </div>
+                        <h3>Speech-to-Text</h3>
+                        <p class="pipeline__card-tech">Deepgram</p>
+                        <p>Real-time transcription with 95%+ accuracy.</p>
+                        <div class="pipeline__card-arrow">
+                            <span class="material-symbols-outlined">arrow_downward</span>
+                        </div>
+                    </div>
+
+                    <div class="pipeline__card reveal reveal-delay-2">
+                        <div class="pipeline__card-icon">
+                            <span class="material-symbols-outlined">psychology</span>
+                        </div>
+                        <h3>Cognitive Logic</h3>
+                        <p class="pipeline__card-tech">Gemini</p>
+                        <p>Context-aware reasoning &amp; intent extraction.</p>
+                        <div class="pipeline__card-arrow">
+                            <span class="material-symbols-outlined">arrow_downward</span>
+                        </div>
+                    </div>
+
+                    <div class="pipeline__card reveal reveal-delay-3">
+                        <div class="pipeline__card-icon">
+                            <span class="material-symbols-outlined">bolt</span>
+                        </div>
+                        <h3>Action Layer</h3>
+                        <p class="pipeline__card-tech">n8n / Make</p>
+                        <p>Automated booking, CRM updates, routing.</p>
+                        <div class="pipeline__card-arrow">
+                            <span class="material-symbols-outlined">arrow_downward</span>
+                        </div>
+                    </div>
+
+                    <div class="pipeline__card reveal reveal-delay-4">
+                        <div class="pipeline__card-icon">
+                            <span class="material-symbols-outlined">volume_up</span>
+                        </div>
+                        <h3>Neural TTS</h3>
+                        <p class="pipeline__card-tech">ElevenLabs</p>
+                        <p>Natural, human-like voice responses.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD -->
+        <section class="dashboard" id="dashboard">
+            <div class="dashboard__inner">
+                <span class="section-label reveal">Dashboard</span>
+                <h2 class="section-title reveal reveal-delay-1">Real-time <span>Action Log</span></h2>
+                <p class="section-desc reveal reveal-delay-2">Full visibility into every AI interaction —
+                    transcriptions, actions, and outcomes.</p>
+
+                <div class="terminal reveal reveal-delay-3">
+                    <div class="terminal__header">
+                        <div style="display: flex; align-items: center;">
+                            <div class="terminal__dots">
+                                <div class="terminal__dot terminal__dot--red"></div>
+                                <div class="terminal__dot terminal__dot--yellow"></div>
+                                <div class="terminal__dot terminal__dot--green"></div>
+                            </div>
+                            <span class="terminal__title">agent-dashboard — live</span>
+                        </div>
+                        <div class="accuracy-ring">
+                            <svg viewBox="0 0 64 64">
+                                <circle class="accuracy-ring__bg" cx="32" cy="32" r="28"></circle>
+                                <circle class="accuracy-ring__fill" cx="32" cy="32" r="28"></circle>
+                            </svg>
+                            <div class="accuracy-ring__label">
+                                <span class="accuracy-ring__value">90%</span>
+                                <span class="accuracy-ring__text">Accuracy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terminal__body" id="terminalBody">
+                        <div class="terminal__line">
+                            <span class="terminal__time">09:14:22</span>
+                            <div class="terminal__content">
+                                <span class="terminal__speaker--caller">Caller:</span>
+                                <span class="terminal__message--caller">"Hi, I'd like to book an appointment for next
+                                    Tuesday."</span>
+                            </div>
+                            <span class="terminal__tag">[transcribed]</span>
+                        </div>
+
+                        <div class="terminal__line">
+                            <span class="terminal__time">09:14:24</span>
+                            <div class="terminal__content">
+                                <span class="terminal__speaker--ai">AI:</span>
+                                <span class="terminal__message--ai">"Of course! I have 10 AM and 2 PM available on
+                                    Tuesday. Which works better?"</span>
+                            </div>
+                            <span class="terminal__tag">[responded]</span>
+                        </div>
+
+                        <div class="terminal__line">
+                            <span class="terminal__time">09:14:28</span>
+                            <div class="terminal__content">
+                                <span class="terminal__speaker--caller">Caller:</span>
+                                <span class="terminal__message--caller">"Let's do 2 PM please."</span>
+                            </div>
+                            <span class="terminal__tag">[transcribed]</span>
+                        </div>
+
+                        <div class="terminal__line">
+                            <span class="terminal__time">09:14:30</span>
+                            <div class="terminal__content">
+                                <span class="terminal__message--action">
+                                    <span class="material-symbols-outlined">check_circle</span>
+                                    Appointment booked: Tuesday 2:00 PM — synced to Google Calendar
+                                </span>
+                            </div>
+                            <span class="terminal__tag terminal__tag--completed">[completed]</span>
+                        </div>
+
+                        <div class="terminal__line">
+                            <span class="terminal__time">09:14:31</span>
+                            <div class="terminal__content">
+                                <span class="terminal__speaker--ai">AI:</span>
+                                <span class="terminal__message--ai">"You're all set for Tuesday at 2 PM. We'll send a
+                                    confirmation to your phone."</span>
+                            </div>
+                            <span class="terminal__tag">[responded]</span>
+                        </div>
+
+                        <div class="terminal__line terminal__cursor">
+                            <span class="terminal__time">09:14:35</span>
+                            <div class="terminal__content">
+                                <span>_ Waiting for input...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PARTNERS -->
+        <section class="partners">
+            <p class="partners__label">Powered by Industry Leaders</p>
+            <div class="partners__track">
+                <span class="partners__item"><span class="material-symbols-outlined">network_node</span> Deepgram</span>
+                <span class="partners__item"><span class="material-symbols-outlined">smart_toy</span> Gemini</span>
+                <span class="partners__item"><span class="material-symbols-outlined">hub</span> n8n</span>
+                <span class="partners__item"><span class="material-symbols-outlined">record_voice_over</span>
+                    ElevenLabs</span>
+                <span class="partners__item"><span class="material-symbols-outlined">call</span> Twilio</span>
+                <!-- Duplicate for seamless loop -->
+                <span class="partners__item"><span class="material-symbols-outlined">network_node</span> Deepgram</span>
+                <span class="partners__item"><span class="material-symbols-outlined">smart_toy</span> Gemini</span>
+                <span class="partners__item"><span class="material-symbols-outlined">hub</span> n8n</span>
+                <span class="partners__item"><span class="material-symbols-outlined">record_voice_over</span>
+                    ElevenLabs</span>
+                <span class="partners__item"><span class="material-symbols-outlined">call</span> Twilio</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer" id="contact">
+        <div class="footer__inner">
+            <div class="footer__top">
+                <div class="footer__brand">
+                    <div class="footer__brand-logo">
+                        <span class="material-symbols-outlined">graphic_eq</span>
+                        <span>SmartReception</span>
+                    </div>
+                    <p class="footer__brand-tagline">AI voice agents for modern businesses.</p>
+                    <div class="footer__contact-info">
+                        <p class="footer__contact-name">Bhavy</p>
+                        <a class="footer__contact-email" href="mailto:bhavya@gmail.com">bhavya@gmail.com</a>
+                    </div>
+                </div>
+                <div class="footer__links">
+                    <a class="footer__link" href="#features">Features</a>
+                    <a class="footer__link" href="#pipeline">How It Works</a>
+                    <a class="footer__link" href="#dashboard">Dashboard</a>
+                    <a class="footer__link" href="#contact">Contact</a>
+                    <a class="footer__cta" href="#">Book a Demo</a>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2025 SmartReception Inc. All rights reserved.</p>
+                <div class="footer__legal">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
