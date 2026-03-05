@@ -20,19 +20,31 @@ function splitTextIntoChars(element: HTMLElement): HTMLElement[] {
             const text = node.textContent || '';
             const fragment = document.createDocumentFragment();
 
-            text.split('').forEach((char) => {
-                if (char === ' ') {
-                    const space = document.createTextNode(' ');
-                    fragment.appendChild(space);
-                } else {
-                    const span = document.createElement('span');
-                    span.className = 'char';
-                    span.textContent = char;
-                    span.style.display = 'inline-block';
-                    span.style.opacity = '0';
-                    span.style.transform = 'translateY(40px) rotateX(-40deg)';
-                    fragment.appendChild(span);
-                    chars.push(span);
+            // Split into words first, then chars within each word
+            const words = text.split(/( )/); // keep spaces as separate tokens
+
+            words.forEach((word) => {
+                if (word === ' ') {
+                    fragment.appendChild(document.createTextNode(' '));
+                } else if (word.length > 0) {
+                    // Wrap all chars of this word in a word-level span
+                    const wordSpan = document.createElement('span');
+                    wordSpan.className = 'word';
+                    wordSpan.style.display = 'inline-block';
+                    wordSpan.style.whiteSpace = 'nowrap';
+
+                    word.split('').forEach((char) => {
+                        const span = document.createElement('span');
+                        span.className = 'char';
+                        span.textContent = char;
+                        span.style.display = 'inline-block';
+                        span.style.opacity = '0';
+                        span.style.transform = 'translateY(40px) rotateX(-40deg)';
+                        wordSpan.appendChild(span);
+                        chars.push(span);
+                    });
+
+                    fragment.appendChild(wordSpan);
                 }
             });
 

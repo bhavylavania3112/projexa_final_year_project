@@ -1,99 +1,142 @@
 /**
- * SmartReception — GSAP Shutter Intro Animation
+ * SmartReception — Frame-Sequence Intro Animation
  *
- * Premium shutter-opening effect that reveals the site on scroll/click.
- * Uses GSAP timeline for smooth, orchestrated animation.
+ * Plays a 50-frame PNG sequence on a full-screen canvas, triggered by
+ * scroll / click / keyboard. Replaces the old CSS shutter-slat approach.
  */
 
 import gsap from 'gsap';
 
+const FRAME_COUNT = 50;
+const FPS = 30;
+
+/** Build the URL for a frame number 1…50 */
+function frameSrc(n: number): string {
+    return `/frames/ezgif-frame-${String(n).padStart(3, '0')}.png`;
+}
+
 export function initShutter(): void {
-    const shutterOverlay = document.getElementById('shutterOverlay');
-    const shutterGradient = document.getElementById('shutterGradient');
+    const canvas = document.getElementById('frameCanvas') as HTMLCanvasElement | null;
     const shutterCta = document.getElementById('shutterCta');
 
-    if (!shutterOverlay || !shutterGradient || !shutterCta) return;
+    if (!canvas || !shutterCta) return;
 
-    let shutterOpened = false;
+    const ctx = canvas.getContext('2d')!;
+    let animationTriggered = false;
 
-    function openShutter(): void {
-        if (shutterOpened) return;
-        shutterOpened = true;
+    // ── Preload all frames ──────────────────────────────────
+    const frames: HTMLImageElement[] = [];
+    let loadedCount = 0;
 
-        const slats = shutterOverlay!.querySelectorAll<HTMLElement>('.shutter-slat');
-        const tl = gsap.timeline({
-            onComplete: () => {
-                // Clean up DOM
-                shutterOverlay!.remove();
-                shutterGradient!.remove();
-                shutterCta!.remove();
-            },
-        });
+    function onAllLoaded(): void {
+        drawFrame(0); // show first frame immediately
+    }
 
-        // Fade out the CTA
-        tl.to(shutterCta, {
+    for (let i = 1; i <= FRAME_COUNT; i++) {
+        const img = new Image();
+        img.src = frameSrc(i);
+        img.onload = () => {
+            loadedCount++;
+            if (loadedCount === FRAME_COUNT) onAllLoaded();
+        };
+        frames.push(img);
+    }
+
+    // ── Resize canvas to fill viewport ─────────────────────
+    function resize(): void {
+        canvas!.width = window.innerWidth;
+        canvas!.height = window.innerHeight;
+        // Re-draw current frame after resize
+        if (frames[0]?.complete) drawFrame(0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // ── Draw a single frame (cover-fit) ────────────────────
+    function drawFrame(index: number): void {
+        const img = frames[index];
+        if (!img || !img.complete) return;
+
+        const cw = canvas!.width;
+        const ch = canvas!.height;
+        const iw = img.naturalWidth;
+        const ih = img.naturalHeight;
+
+        // "cover" fit – fill canvas while maintaining aspect ratio
+        const scale = Math.max(cw / iw, ch / ih);
+        const dw = iw * scale;
+        const dh = ih * scale;
+        const dx = (cw - dw) / 2;
+        const dy = (ch - dh) / 2;
+
+        ctx.clearRect(0, 0, cw, ch);
+        ctx.drawImage(img, dx, dy, dw, dh);
+    }
+
+    // ── Play the frame sequence ────────────────────────────
+    function playSequence(): void {
+        if (animationTriggered) return;
+        animationTriggered = true;
+
+        // Fade out the CTA immediately
+        gsap.to(shutterCta, {
             opacity: 0,
             y: 20,
             duration: 0.3,
             ease: 'power2.in',
         });
 
-        // Animate top slats upward, bottom slats downward with stagger
-        const topSlats = Array.from(slats).slice(0, 4);
-        const bottomSlats = Array.from(slats).slice(4);
+        let currentFrame = 0;
+        const interval = 1000 / FPS;
+        let lastTime = performance.now();
 
-        tl.to(
-            topSlats,
-            {
-                yPercent: -120,
-                duration: 1.2,
-                stagger: 0.05,
-                ease: 'expo.inOut',
-            },
-            '-=0.1'
-        );
+        function tick(now: number): void {
+            if (currentFrame >= FRAME_COUNT) {
+                // Animation done — fade out canvas, then clean up
+                gsap.to(canvas, {
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    onComplete: () => {
+                        canvas!.remove();
+                        shutterCta!.remove();
+                        window.removeEventListener('resize', resize);
+                    },
+                });
 
-        tl.to(
-            bottomSlats,
-            {
-                yPercent: 120,
-                duration: 1.2,
-                stagger: { each: 0.05, from: 'end' },
-                ease: 'expo.inOut',
-            },
-            '<' // Start at the same time as top slats
-        );
+                // Smooth-reveal main content
+                gsap.fromTo(
+                    'main',
+                    { opacity: 0.8, scale: 0.98 },
+                    { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out' }
+                );
+                return;
+            }
 
-        // Fade out gradient backdrop
-        tl.to(
-            shutterGradient,
-            {
-                opacity: 0,
-                duration: 0.8,
-                ease: 'power2.out',
-            },
-            '-=0.6'
-        );
+            const delta = now - lastTime;
+            if (delta >= interval) {
+                drawFrame(currentFrame);
+                currentFrame++;
+                lastTime = now - (delta % interval);
+            }
+            requestAnimationFrame(tick);
+        }
 
-        // Trigger a reveal pulse on main content
-        tl.fromTo(
-            'main',
-            { opacity: 0.8, scale: 0.98 },
-            { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out' },
-            '-=0.4'
-        );
+        requestAnimationFrame(tick);
     }
 
-    // Trigger on scroll
+    // ── Triggers (same as original shutter) ────────────────
+
+    // Scroll
     window.addEventListener(
         'wheel',
         (e: WheelEvent) => {
-            if (!shutterOpened && e.deltaY > 0) openShutter();
+            if (!animationTriggered && e.deltaY > 0) playSequence();
         },
         { passive: true }
     );
 
-    // Trigger on touch swipe up
+    // Touch swipe up
     let touchStartY = 0;
     window.addEventListener(
         'touchstart',
@@ -107,23 +150,23 @@ export function initShutter(): void {
         'touchmove',
         (e: TouchEvent) => {
             const delta = touchStartY - e.touches[0].clientY;
-            if (!shutterOpened && delta > 30) openShutter();
+            if (!animationTriggered && delta > 30) playSequence();
         },
         { passive: true }
     );
 
-    // Trigger on CTA click
-    shutterCta.addEventListener('click', openShutter);
+    // CTA click
+    shutterCta.addEventListener('click', playSequence);
 
-    // Trigger on keyboard
+    // Keyboard
     window.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (!shutterOpened && (e.key === 'ArrowDown' || e.key === ' ')) {
+        if (!animationTriggered && (e.key === 'ArrowDown' || e.key === ' ')) {
             e.preventDefault();
-            openShutter();
+            playSequence();
         }
     });
 
     // Expose for smooth scroll integration
-    (window as any).__shutterOpened = () => shutterOpened;
-    (window as any).__openShutter = openShutter;
+    (window as any).__shutterOpened = () => animationTriggered;
+    (window as any).__openShutter = playSequence;
 }
