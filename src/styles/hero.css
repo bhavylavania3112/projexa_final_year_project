@@ -101,7 +101,7 @@
 /* Glass card around CTA area */
 .hero__glass-card {
     background: var(--card-bg);
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(10px);
     border: 1px solid var(--card-border);
     border-radius: 20px;
     padding: 2.5rem 3rem;
@@ -111,6 +111,7 @@
     gap: 1.5rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
     margin-bottom: 3rem;
+    transform: translateZ(0);
 }
 
 /* Audio waveform visualizer */

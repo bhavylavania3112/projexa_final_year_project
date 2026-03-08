@@ -27,12 +27,10 @@ export function initScrollReveal(): void {
             {
                 opacity: 0,
                 y: 40,
-                filter: 'blur(4px)',
             },
             {
                 opacity: 1,
                 y: 0,
-                filter: 'blur(0px)',
                 duration: 1,
                 delay,
                 ease: 'expo.out',

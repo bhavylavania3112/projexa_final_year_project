@@ -2,7 +2,8 @@
  * SmartReception — Custom Cursor
  *
  * Premium custom cursor with dot + ring that reacts
- * to hoverable elements with scale animations.
+ * to hoverable elements. Optimized with gsap.quickTo
+ * instead of creating new tweens every tick.
  */
 
 import gsap from 'gsap';
@@ -20,34 +21,26 @@ export function initCustomCursor(): void {
     ring.className = 'cursor-ring';
     document.body.appendChild(ring);
 
-    let mouseX = 0;
-    let mouseY = 0;
+    // Use quickTo — creates a reusable setter that's ~50x faster
+    // than creating a new gsap.to() on every frame
+    const dotX = gsap.quickTo(dot, 'x', { duration: 0.15, ease: 'power3.out' });
+    const dotY = gsap.quickTo(dot, 'y', { duration: 0.15, ease: 'power3.out' });
+    const ringX = gsap.quickTo(ring, 'x', { duration: 0.35, ease: 'power3.out' });
+    const ringY = gsap.quickTo(ring, 'y', { duration: 0.35, ease: 'power3.out' });
 
-    // Track mouse
+    // Track mouse — single passive listener, no rAF loop
     window.addEventListener('mousemove', (e: MouseEvent) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+        dotX(e.clientX - 4);
+        dotY(e.clientY - 4);
+        ringX(e.clientX - 18);
+        ringY(e.clientY - 18);
 
         // Show cursor after first move
-        dot.classList.add('visible');
-        ring.classList.add('visible');
-    });
-
-    // Smooth follow with GSAP
-    gsap.ticker.add(() => {
-        gsap.to(dot, {
-            x: mouseX - 4,
-            y: mouseY - 4,
-            duration: 0.1,
-            ease: 'power2.out',
-        });
-        gsap.to(ring, {
-            x: mouseX - 18,
-            y: mouseY - 18,
-            duration: 0.25,
-            ease: 'power2.out',
-        });
-    });
+        if (!dot.classList.contains('visible')) {
+            dot.classList.add('visible');
+            ring.classList.add('visible');
+        }
+    }, { passive: true });
 
     // Hover detection
     const hoverTargets = document.querySelectorAll<HTMLElement>(

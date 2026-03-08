@@ -1,8 +1,9 @@
 /**
  * SmartReception — GSAP Parallax Orb Movement
  *
- * Uses ScrollTrigger to create depth via parallax
- * on the background gradient orbs.
+ * Uses ScrollTrigger for depth via parallax on background orbs.
+ * Optimized: removed per-frame gsap.set() mouse loop,
+ * uses lightweight CSS transforms instead.
  */
 
 import gsap from 'gsap';
@@ -20,16 +21,15 @@ export function initParallax(): void {
     orbs.forEach((orb, i) => {
         const speed = speeds[i] || 0.1;
 
-        // Floating idle animation
+        // Floating idle animation — slower, GPU-composited
         gsap.to(orb, {
-            x: `random(-40, 40)`,
-            y: `random(-30, 30)`,
-            scale: `random(0.9, 1.1)`,
-            duration: `random(15, 25)`,
+            x: `random(-20, 20)`,
+            y: `random(-15, 15)`,
+            duration: `random(20, 35)`,
             ease: 'sine.inOut',
             repeat: -1,
             yoyo: true,
-            delay: i * 2,
+            delay: i * 3,
         });
 
         // Scroll-based parallax
@@ -40,39 +40,31 @@ export function initParallax(): void {
                 trigger: document.body,
                 start: 'top top',
                 end: 'bottom bottom',
-                scrub: 1.5,
+                scrub: 2,
             },
         });
     });
 
-    // ---- Mouse-reactive parallax (subtle) ----
-    let mouseX = 0;
-    let mouseY = 0;
-    let currentMX = 0;
-    let currentMY = 0;
-
-    window.addEventListener('mousemove', (e: MouseEvent) => {
-        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-    });
-
-    function animateMouseParallax(): void {
-        currentMX += (mouseX - currentMX) * 0.05;
-        currentMY += (mouseY - currentMY) * 0.05;
-
-        orbs.forEach((orb, i) => {
-            const intensity = 15 + i * 5;
-            gsap.set(orb, {
-                x: `+=${currentMX * intensity * 0.01}`,
-                y: `+=${currentMY * intensity * 0.01}`,
-            });
+    // Mouse-reactive parallax — uses a single gsap.quickTo per orb
+    // which is far cheaper than creating new tweens every frame
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const quickOrbs = Array.from(orbs).map((orb, i) => {
+            const intensity = (10 + i * 3) * 0.3;
+            return {
+                qx: gsap.quickTo(orb, 'x', { duration: 0.8, ease: 'power2.out' }),
+                qy: gsap.quickTo(orb, 'y', { duration: 0.8, ease: 'power2.out' }),
+                intensity,
+            };
         });
 
-        requestAnimationFrame(animateMouseParallax);
-    }
+        window.addEventListener('mousemove', (e: MouseEvent) => {
+            const mx = (e.clientX / window.innerWidth - 0.5) * 2;
+            const my = (e.clientY / window.innerHeight - 0.5) * 2;
 
-    // Only enable on non-touch devices
-    if (window.matchMedia('(pointer: fine)').matches) {
-        animateMouseParallax();
+            quickOrbs.forEach(({ qx, qy, intensity }) => {
+                qx(mx * intensity);
+                qy(my * intensity);
+            });
+        }, { passive: true });
     }
 }

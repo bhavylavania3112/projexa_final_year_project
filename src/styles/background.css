@@ -13,8 +13,10 @@
 .glow-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(60px);
+    filter: blur(40px);
     will-change: transform;
+    transform: translateZ(0);
+    contain: layout style;
 }
 
 .glow-orb--1 {
