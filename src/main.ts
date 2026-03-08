@@ -16,6 +16,7 @@ import './styles/dashboard.css';
 import './styles/partners.css';
 import './styles/footer.css';
 import './styles/animations.css';
+import './styles/callWidget.css';
 
 // ---- Lenis smooth scroll CSS ----
 import 'lenis/dist/lenis.css';
@@ -32,6 +33,7 @@ import { initCustomCursor } from './animations/cursor';
 // ---- Components ----
 import { initHeader } from './components/header';
 import { initSmoothScroll } from './components/smoothScroll';
+import { initCallWidget } from './components/callWidget';
 
 // ---- Initialize Everything ----
 document.addEventListener('DOMContentLoaded', () => {
@@ -49,6 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initParallax();
     initMagneticButtons();
     initCustomCursor();
+
+    // Vapi call widget
+    initCallWidget();
 
     console.log('🚀 SmartReception initialized with GSAP + Lenis');
 });

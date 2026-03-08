@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vapi-ai/web": "^2.5.2",
     "gsap": "^3.12.7",
     "lenis": "^1.2.3"
   },

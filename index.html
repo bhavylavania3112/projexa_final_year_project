@@ -308,13 +308,20 @@
         </div>
     </footer>
 
-    <script type="module" src="/src/main.ts"></script>
+    <!-- ========== CALL WIDGET ========== -->
+    <div class="call-widget" id="callWidget">
+        <button class="call-widget__btn" id="callBtn" data-state="idle" aria-label="Call SmartReception AI">
+            <span class="call-widget__icon material-symbols-outlined">call</span>
+            <span class="call-widget__ripple"></span>
+            <span class="call-widget__pulse"></span>
+            <span class="call-widget__pulse"></span>
+            <span class="call-widget__pulse"></span>
+        </button>
+        <span class="call-widget__timer" id="callTimer">00:00</span>
+        <span class="call-widget__status" id="callStatus">Talk to AI Agent</span>
+    </div>
 
-    <!-- Vapi AI Chat Widget -->
-    <script src="https://unpkg.com/@vapi-ai/client-sdk-react/dist/embed/widget.umd.js" async></script>
-    <vapi-widget public-key="5f704c75-6d38-4826-94d3-afd81c639c1a" assistant-id="53ff5e9a-14a3-49fe-a010-84fcef97d7ca"
-        mode="chat" theme="light" position="bottom-right" size="full" radius="medium" accent-color="#1a1a2e"
-        main-label="Talk to SmartReception"></vapi-widget>
+    <script type="module" src="/src/main.ts"></script>
 </body>
 
 </html>

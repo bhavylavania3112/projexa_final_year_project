@@ -101,6 +101,7 @@ export function initShutter(): void {
                         canvas!.remove();
                         shutterCta!.remove();
                         window.removeEventListener('resize', resize);
+                        window.dispatchEvent(new CustomEvent('shutter-opened'));
                     },
                 });
 
