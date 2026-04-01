@@ -3,7 +3,7 @@
  *
  * A floating call button that lets visitors talk to the
  * SmartReception AI agent directly from the browser using
- * the Vapi Web SDK.
+ * the Vapi Web SDK. Includes persistent memory for dropped calls.
  */
 
 import Vapi from '@vapi-ai/web';
@@ -27,6 +27,9 @@ export function initCallWidget(): void {
     let state: CallState = 'idle';
     let timerInterval: ReturnType<typeof setInterval> | null = null;
     let seconds = 0;
+    
+    // Persistent memory variable
+    let currentSessionTranscript = sessionStorage.getItem('vapi_memory') || "";
 
     // ── UI state helpers ──────────────────────────────
     function setState(newState: CallState): void {
@@ -90,6 +93,23 @@ export function initCallWidget(): void {
     vapi.on('call-start', () => {
         setState('active');
         startTimer();
+
+        // Inject the memory shortly after connection succeeds
+        if (currentSessionTranscript.trim().length > 0) {
+            setTimeout(() => {
+                try {
+                    vapi.send({
+                        type: 'add-message',
+                        message: {
+                            role: 'system',
+                            content: `Important Context: The customer was accidentally disconnected on a previous call. Here is the transcript of what you were just talking about:\n\n${currentSessionTranscript}\n\nPick up the conversation exactly where you left off. Do not start over.`
+                        }
+                    });
+                } catch (e) {
+                    console.error("Could not inject memory", e);
+                }
+            }, 800);
+        }
     });
 
     vapi.on('call-end', () => {
@@ -101,6 +121,16 @@ export function initCallWidget(): void {
         console.error('Vapi error:', err);
         setState('idle');
         stopTimer();
+    });
+
+    // Transcript listener for Persistent Memory
+    vapi.on('message', (message: any) => {
+        if (message.type === 'transcript' && message.transcriptType === 'final') {
+            const speaker = message.role === 'user' ? 'Customer' : 'AI Assistant';
+            currentSessionTranscript += `\n${speaker}: ${message.transcript}`;
+            // Save to sessionStorage so it survives page reloads
+            sessionStorage.setItem('vapi_memory', currentSessionTranscript);
+        }
     });
 
     // ── Click handler ─────────────────────────────────
@@ -117,13 +147,24 @@ export function initCallWidget(): void {
         if (state === 'idle') {
             setState('connecting');
             try {
-                await vapi.start(ASSISTANT_ID);
+                // If we have a past transcript, we inject a short, natural greeting override
+                let assistantOverrides = {};
+                if (currentSessionTranscript.trim().length > 0) {
+                    assistantOverrides = {
+                        firstMessage: "Oh, it looks like we got disconnected! Where were we? Ah right..."
+                    };
+                }
+
+                await vapi.start(ASSISTANT_ID, assistantOverrides);
             } catch (err) {
                 console.error('Failed to start call:', err);
                 setState('idle');
             }
         } else if (state === 'active' || state === 'connecting') {
             setState('ending');
+            // User intentionally hung up via the button! We can clear the memory for a fresh start next time.
+            sessionStorage.removeItem('vapi_memory');
+            currentSessionTranscript = "";
             vapi.stop();
         }
     });
