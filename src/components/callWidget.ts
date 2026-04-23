@@ -9,8 +9,8 @@
 import Vapi from '@vapi-ai/web';
 import gsap from 'gsap';
 
-const PUBLIC_KEY = '5f704c75-6d38-4826-94d3-afd81c639c1a';
-const ASSISTANT_ID = '53ff5e9a-14a3-49fe-a010-84fcef97d7ca';
+const PUBLIC_KEY = 'e754ec44-ffec-4504-8820-97887f9490a5';
+const ASSISTANT_ID = '87663366-9507-4054-87ee-08579d65e725';
 
 type CallState = 'idle' | 'connecting' | 'active' | 'ending';
 
